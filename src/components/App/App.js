@@ -25,7 +25,21 @@ const particlesOpt={
 const app = new Clarifai.App({
   apiKey: 'fb1d5ea17bf5434a8eeac8b0cc0b3b97'
  });
-
+const initialState = {
+      input:'',
+      ImageUrl:'',
+      box:{},
+      route:'signin',
+      IsSignedin:false,
+    
+      user:{
+        id :'',
+        name :'',
+        email:'',
+        entries:0,
+        joined: ''
+    }
+  };
 
 class App extends Component {
   constructor(){
@@ -100,6 +114,8 @@ class App extends Component {
           .then(count=>{
             this.setState(Object.assign(this.state.user,{ entries:count }))
           })
+          .catch(console.log)
+          
         }
       this.displayFaceBox( 
       this.calculateFaceLocation(response))})
@@ -110,7 +126,7 @@ class App extends Component {
     onRouteChange=(route)=>{
       
       if(route==='signin'){
-        this.setState({IsSignedin:false});
+        this.setState(initialState);
       }else if (route==='home') {
         this.setState({IsSignedin:true});
       }
